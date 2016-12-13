@@ -1,0 +1,18 @@
+{
+  "name": "slack",
+  "version": "1.0.0",
+  "description": "Module for interfacing Slack from MagicMirror",
+  "main": "slack.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MagicMirror",
+    "Slack"
+  ],
+  "author": "Sigbjørn Trageton",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/client": "3.6.0"
+  }
+}
