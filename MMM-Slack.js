@@ -31,11 +31,13 @@ Module.register('MMM-Slack',{
 		
 		if(this.slackMessage.message != '')
 		{
-			var userElement = document.createElement('p');
-			userElement.className = 'user';
-			userElement.innerHTML = '@' + this.slackMessage.user;
 			messageElement.innerHTML = this.slackMessage.message;
-			messageElement.appendChild(userElement);
+            if(this.config.showUserName) {
+                var userElement = document.createElement('p');
+                userElement.className = 'user';
+                userElement.innerHTML = '@' + this.slackMessage.user;
+			    messageElement.appendChild(userElement);
+            }
 		}
 		return messageElement;
 	}
