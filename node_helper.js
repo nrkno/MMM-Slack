@@ -41,10 +41,10 @@ module.exports = NodeHelper.create({
 				return;
 			if(slackMessage.subtype != null)
 			{
-				self.userName = rtm.dataStore.getUserById(slackMessage.message.user).name;
 				switch(slackMessage.subtype)
 				{
 					case 'message_changed':
+                        self.userName = rtm.dataStore.getUserById(slackMessage.message.user).name;
 						self.messageText = slackMessage.message.text;
 						break;
 					case 'message_deleted':
