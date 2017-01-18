@@ -26,7 +26,14 @@ module.exports = NodeHelper.create({
 			logLevel: 'error',
 			dataStore: new MemoryDataStore() 
 		});
-		rtm.start();
+		
+        rtm.start();
+
+        rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
+            var channel = rtm.dataStore.getGroupByName('siggitest');
+            self.messageText = config.showLatestMessageOnStartup ? channel.latest.text : '';
+            self.broadcastMessage();
+        });
 
 		rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(slackMessage) {
 			var channelName = rtm.dataStore.getChannelGroupOrDMById(slackMessage.channel).name;

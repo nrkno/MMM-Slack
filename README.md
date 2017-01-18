@@ -42,7 +42,17 @@ Add the module to the modules array in the config/config.js file by adding the f
 	</tr>
 	<tr>
 		<td>slackChannel</td>
-		<td>Whick Slack channel you want to display messages from</td>
+		<td>Which Slack channel you want to display messages from</td>
 		<td>test</td>
 	</tr>
+    <tr>
+        <td>showUserName</td>
+        <td>If true, the message sender's user name will be displayed with the message</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>showLatestMessageOnStartup</td>
+        <td>If true, the latest message in the channel will be displayed on startup</td>
+        <td>false</td>
+    </tr>
 </table>

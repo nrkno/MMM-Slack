@@ -1,6 +1,7 @@
 Module.register('MMM-Slack',{
 	defaults: {
-
+        showLatestMessageOnStartup: false,
+        showUserName: true
 	},
 	
 	getStyles: function() {
