@@ -30,7 +30,7 @@ module.exports = NodeHelper.create({
         rtm.start();
 
         rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-            var channel = rtm.dataStore.getGroupByName('siggitest');
+            var channel = rtm.dataStore.getGroupByName(config.slackChannel);
             self.messageText = config.showLatestMessageOnStartup ? channel.latest.text : '';
             self.broadcastMessage();
         });
