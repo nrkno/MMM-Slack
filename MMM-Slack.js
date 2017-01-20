@@ -9,8 +9,12 @@ Module.register('MMM-Slack',{
 	},
 
 	start: function() {
-		this.slackMessage = {message: '', user: ''};
+		this.slackMessages = [];
 		this.openSlackConnection();
+        var self = this;
+        setInterval(function() {
+            self.updateDom(1000);
+        }, 10000);
 	},
 
 	openSlackConnection: function() {
@@ -19,8 +23,8 @@ Module.register('MMM-Slack',{
 
 	socketNotificationReceived: function(notification, payload) {
 		if(notification === 'SLACK_DATA'){
-			if(payload.message != null) {
-				this.slackMessage = payload;
+			if(payload != null) {
+				this.slackMessages = payload;
 				this.updateDom(2.5 * 1000);
 			}
 		}
@@ -29,14 +33,14 @@ Module.register('MMM-Slack',{
 	getDom: function() {
 		var messageElement = document.createElement('div');
 		messageElement.className = 'light xlarge';
-		
-		if(this.slackMessage.message != '')
+		if(this.slackMessages.length > 0)
 		{
-			messageElement.innerHTML = this.slackMessage.message;
+            var randomMessageId = Math.floor(Math.random() * this.slackMessages.length);
+            messageElement.innerHTML = this.slackMessages[randomMessageId].message;
             if(this.config.showUserName) {
                 var userElement = document.createElement('p');
                 userElement.className = 'user';
-                userElement.innerHTML = '@' + this.slackMessage.user;
+                userElement.innerHTML = '@' + this.slackMessages[randomMessageId].user;
 			    messageElement.appendChild(userElement);
             }
 		}
