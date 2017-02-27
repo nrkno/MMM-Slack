@@ -20,6 +20,28 @@ module.exports = NodeHelper.create({
 		}
 	},
 
+    sendChannelMessages: function(rtm, err, result) {
+        if (err)
+            return console.log(err);
+        if (!result.ok)
+            return console.log(result.error);
+        if (result.warning)
+            console.log(result.warning);
+        var slackMessages = [];
+        result.messages.forEach(function(message) {
+            if(!message.subtype) {
+                var slackMessage = {
+                    'messageId': message.ts,
+                    'user': rtm.dataStore.getUserById(message.user).name, 
+                    'message': message.text
+                };
+                slackMessages.push(slackMessage);
+            }
+        });
+        this.messages = slackMessages;
+        this.broadcastMessage();
+    },
+
 	startSlackConnection: function(config) {
 		var self = this;
 		var token = process.env.SLACK_API_TOKEN || config.slackToken;
@@ -32,30 +54,19 @@ module.exports = NodeHelper.create({
         rtm.start();
 
         rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-            var channel = rtm.dataStore.getGroupByName(config.slackChannel);
             var web = new WebClient(token);
-
-            web.groups.history(channel.id, function(err, result) {
-                if (err)
-                    return console.log(err);
-                if (!result.ok)
-                    return console.log(result.error);
-                if (result.warning)
-                    console.log(result.warning);
-                var slackMessages = [];
-                result.messages.forEach(function(message) {
-                    if(!message.subtype) {
-                        var slackMessage = {
-                            'messageId': message.ts,
-                            'user': rtm.dataStore.getUserById(message.user).name, 
-                            'message': message.text
-                        };
-                        slackMessages.push(slackMessage);
-                    }
-                });
-                self.messages = slackMessages;
-                self.broadcastMessage();
-            });
+            var channel = rtm.dataStore.getChannelByName(config.slackChannel) || rtm.dataStore.getGroupByName(config.slackChannel);
+            
+            if(channel.is_channel) {
+               web.channels.history(channel.id, function(err, result) { 
+                   self.sendChannelMessages(rtm, err, result);
+               });
+            }
+            else {
+                web.groups.history(channel.id, function(err, result) { 
+                   self.sendChannelMessages(rtm, err, result);
+               });
+            }
         });
 
 		rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(slackMessage) {
