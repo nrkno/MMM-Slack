@@ -1,20 +1,19 @@
 # MagicMirror² Module: MMM-Slack
 This is a module integrating Slack in [MagicMirror²](https://github.com/MichMich/MagicMirror). It displays messages from the a given Slack channel in config.js. The module also supports update and delete messages
 
-##Prerequisities
-Go to your MagicMirror folder and run the command:
+## How to install
 
-	npm install @slack/client
+Remote into your MagicMirror box using a terminal software and go to the application folder:
 
-##How to install
-
-Remote into your Magic Mirror box using a terminal software and go to the modules folder:
-
-    cd ~/MagicMirror/modules
+    cd ~/MagicMirror
 
 Clone the repository:
 
 	git clone https://github.com/nrkno/MMM-Slack
+	
+Install dependencies:
+
+`npm install`
 
 Add the module to the modules array in the config/config.js file by adding the following section. You can change this configuration later when you see this works:
 
