@@ -13,6 +13,7 @@
   "author": "Sigbjørn Trageton",
   "license": "MIT",
   "dependencies": {
-    "@slack/client": "3.6.0"
+    "@slack/web-api": "5.11.0",
+    "@slack/rtm-api": "5.0.5"
   }
 }

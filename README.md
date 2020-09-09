@@ -22,7 +22,7 @@ Add the module to the modules array in the config/config.js file by adding the f
 		position: 'lower_third',
 		config: {
 			slackToken: 'YOUR_SLACK_TOKEN_GOES_HERE',
-			slackChannel: 'THE_CHANNEL_YOU_WANT_MESSAGES_FROM'
+			slackChannelId: 'THE_CHANNEL_ID_YOU_WANT_MESSAGES_FROM'
 		}
 	},
 
@@ -40,9 +40,9 @@ Add the module to the modules array in the config/config.js file by adding the f
 		<td>aaaa-bbbbb-ccccc-dddd-12344</td>
 	</tr>
 	<tr>
-		<td>slackChannel</td>
-		<td>Which Slack channel you want to display messages from</td>
-		<td>test</td>
+		<td>slackChannelId</td>
+		<td>Which Slack channel you want to display messages from. You can get the id by opening the web interface for slack, click on the actual channel and you will find the id in the url</td>
+		<td>W1234567890</td>
 	</tr>
     <tr>
         <td>showUserName</td>
